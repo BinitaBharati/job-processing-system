@@ -17,10 +17,10 @@ Execute `mvn clean;mvn package` to build a uber jar.
 
 ## Run
 From the project directory, run the below command:
-`java -classpath ./target/job-processor-0.0.1-SNAPSHOT.jar bharati.binita.job.processor.Main &`
+`java -classpath ./target/job-processor-0.0.1-SNAPSHOT.jar bharati.binita.job.processor.Main `
 
 ## Verify
-After the run, the content of the file pointed by the `job.tracker.output.path` property will be containing the below sample entries:
+In another terminal, open the file as referred by the `job.tracker.output.path` property. It will contain the below sample entries:
 ```
 time = Sun Jun 06 13:24:42 IST 2021 ;numJobsSubmitted = 29 ;avgProcessingTime = 0.67 ms ;successRate = 15/29 ;failureRate = 0/29
 time = Sun Jun 06 13:25:12 IST 2021 ;numJobsSubmitted = 29 ;avgProcessingTime = 0.53 ms ;successRate = 15/29 ;failureRate = 0/29
