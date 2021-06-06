@@ -60,7 +60,7 @@ public class JobTracker {
 	}
 	
 	public void addJob(JobDetails job) {
-		this.jobIdToJobMap.put(job.getJobId(), job);
+		this.jobIdToJobMap.putIfAbsent(job.getJobId(), job);
 	}
 	
 	public void updateJob(JobDetails jd) {
@@ -104,6 +104,7 @@ public class JobTracker {
 		boolean writeFlag = false;
 		while (itr.hasNext()) {			
 			JobDetails temp = itr.next();
+			logger.info("JT: temp = "+temp);
 			includedJobIds.add(temp.getJobId());
 			if(temp.getStatus() == JobStatus.COMPLETED || temp.getStatus() == JobStatus.FAILED ) {
 				processingTime = processingTime + (temp.getEndTimeEpochMilliSecs() - temp.getStartTimeEpochMilliSecs());
@@ -114,6 +115,8 @@ public class JobTracker {
 					failedJobCount++;
 				}
 				itr.remove();
+				logger.info("JT: after removing entry = "+temp);
+
 
 			}
 		}
@@ -147,7 +150,7 @@ public class JobTracker {
 	}
 	
 	public void startTracker( ) {
-		scheduler.scheduleWithFixedDelay(new Runnable() {
+		scheduler.scheduleAtFixedRate(new Runnable() {
 			
 			@Override
 			public void run() {

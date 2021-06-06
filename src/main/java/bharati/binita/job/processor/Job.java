@@ -12,6 +12,9 @@ import java.util.EnumSet;
 import java.util.Properties;
 import java.util.concurrent.Callable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import bharati.binita.job.processor.JobDetails.JobStatus;
 
 /**
@@ -23,6 +26,8 @@ import bharati.binita.job.processor.JobDetails.JobStatus;
 
 public class Job implements Runnable{
 	
+    private static Logger logger = LoggerFactory.getLogger(Job.class);
+
 	private String id;
 	private long executionTimeEpochMilliSecs;
 	
@@ -41,8 +46,8 @@ public class Job implements Runnable{
 	
 	@Override
 	public void run() {
-		long runTime = new Date().getTime();
-	
+		Date runTime = new Date();
+		Date expectedRunTime = new Date(executionTimeEpochMilliSecs);	
 		jd.setStartTimeEpochMilliSecs(new Date().getTime());
 		jd.setStatus(JobStatus.PROCESSING);
 		jt.updateJob(jd);
